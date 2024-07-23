@@ -26,23 +26,12 @@ export class EventRepository implements IEventRepository {
     
   }
   async findById(id: string): Promise<Event | null> {
-    return await prisma.event.findFirst({
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        details: true,
-        maximumAttendees: true,
-        _count: {
-          select: {
-            attendees: true
-          }
-        }
-      },
+    return await prisma.event.findUnique({
       where: {
         id
       }
     })
+  
   }
   async findSlug(slug: string): Promise<Event | null> {
     return await prisma.event.findUnique({

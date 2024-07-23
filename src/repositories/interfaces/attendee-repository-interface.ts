@@ -8,6 +8,6 @@ export interface RegisterAttendee {
 
 export interface IAttendeeRepository {
   register(data: RegisterAttendee): Promise<Attendee>
-  findByEmail(email: string): Promise<Attendee | null>
+  findByEmailInEvent(email: string, eventId: string): Promise<Attendee | null>
   count(eventId: string): Promise<number>
 }

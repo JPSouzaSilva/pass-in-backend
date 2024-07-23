@@ -1,4 +1,4 @@
-import { Prisma, Attendee } from "@prisma/client";
+import { Attendee } from "@prisma/client";
 import { IAttendeeRepository, RegisterAttendee } from "./interfaces/attendee-repository-interface";
 import { prisma } from "../lib/prisma";
 
@@ -10,14 +10,15 @@ export class AttendeeRepository implements IAttendeeRepository {
       }
     })
   }
-  async findByEmail(email: string): Promise<Attendee | null> {
-    const attendee = await prisma.attendee.findUnique({
+  async findByEmailInEvent(email: string, eventId: string): Promise<Attendee | null> {
+    return await prisma.attendee.findUnique({
       where: {
-        email
+        eventId_email: {
+          email,
+          eventId
+        }
       }
     })
-
-    return attendee
   }
   async register(data: RegisterAttendee): Promise<Attendee> {
     const { eventId, email, name } = data

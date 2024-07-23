@@ -11,8 +11,6 @@ export interface GetEventResponse {
   }
 }
  
-// '{ title: string; details: string | null; maximumAttendees: number | null; id: string; slug: string; _count: { attendees: number; }; } | null'
-
 export interface IEventRepository {
   create(data: Prisma.EventCreateInput): Promise<Event>
   findSlug(slug: string): Promise<Event | null>

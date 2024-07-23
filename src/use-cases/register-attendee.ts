@@ -19,13 +19,13 @@ export class RegisterAttendeeUseCase {
     email,
   }: RegisterAttendee): Promise<RegisterAttendeeResponse> {
     
-    const [attendeeWithSameEmail, event, amountOfAttendeesForEvent] = await Promise.all([
-      this.attendeeRepository.findByEmail(email),
+    const [attendeeFromEmail, event, amountOfAttendeesForEvent] = await Promise.all([
+      this.attendeeRepository.findByEmailInEvent(email, eventId),
       this.eventRepository.findById(eventId),
       this.attendeeRepository.count(eventId)
     ])
-    
-    if (attendeeWithSameEmail) {
+
+    if (attendeeFromEmail) {
       throw new AttendeeWithSameEmailError()
     }
     
