@@ -3,6 +3,13 @@ import { IAttendeeRepository, RegisterAttendee } from "./interfaces/attendee-rep
 import { prisma } from "../lib/prisma";
 
 export class AttendeeRepository implements IAttendeeRepository {
+  async findById(id: number): Promise<Attendee | null> {
+    return await prisma.attendee.findUnique({
+      where: {
+        id
+      }
+    })    
+  }
   async count(eventId: string): Promise<number> {
     return await prisma.attendee.count({
       where: {

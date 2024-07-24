@@ -10,4 +10,5 @@ export interface IAttendeeRepository {
   register(data: RegisterAttendee): Promise<Attendee>
   findByEmailInEvent(email: string, eventId: string): Promise<Attendee | null>
   count(eventId: string): Promise<number>
+  findById(id: number): Promise<Attendee | null>
 }
